@@ -27,24 +27,24 @@ namespace ProductsAPI.Controllers
             var response = new List<CategoryResponseDto>();
 
             //percorrer as categorias obtidas do banco de dados
-            //foreach (var category in categories)
-            //{
-            //    //adicionando cada registro na lista como um DTO
-            //    response.Add(new CategoryResponseDto
-            //    {
-            //        Id = category.Id, //preenchendo o id da categoria
-            //        Name = category.Name //preenchendo o nome da categoria
-            //    });
-            //}
+            foreach (var category in categories)
+            {
+                //adicionando cada registro na lista como um DTO
+                response.Add(new CategoryResponseDto
+                {
+                    Id = category.Id, //preenchendo o id da categoria
+                    Name = category.Name //preenchendo o nome da categoria
+                });
+            }
 
             //preencher as categorias obtidas do banco de dados
-            categories.ForEach(category =>
-                response.Add(
-                    new CategoryResponseDto
-                    {
-                        Id = category.Id, //preenchendo o id da categoria
-                        Name = category.Name //preenchendo o nome da categoria
-                    }));
+            //categories.ForEach(category =>
+            //    response.Add(
+            //        new CategoryResponseDto
+            //        {
+            //            Id = category.Id, //preenchendo o id da categoria
+            //            Name = category.Name //preenchendo o nome da categoria
+            //        }));
 
             //retornando os dados
             return Ok(response);

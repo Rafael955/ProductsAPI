@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.DTOs;
 using ProductsAPI.Entities;
@@ -105,17 +106,31 @@ namespace ProductsAPI.Controllers
             //criando uma lista de objetos da classe DTO
             var response = new List<ProductResponseDto>();
 
+            //percorrer os produtos obtidos do banco de dados
+            foreach (var product in products)
+            {
+                //adicionando cada registro na lista como um DTO
+                response.Add(new ProductResponseDto
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Quantity = product.Quantity,
+                    CategoriaId = product.CategoryId
+                });
+            }
+
             //Carregando a lista DTO de produtos
-            products.ForEach(product =>
-                response.Add(
-                    new ProductResponseDto
-                    {
-                        Id = product.Id,
-                        Name = product.Name,
-                        Price = product.Price,
-                        Quantity = product.Quantity,
-                        CategoriaId = product.CategoryId
-                    }));
+            //products.ForEach(product =>
+            //    response.Add(
+            //        new ProductResponseDto
+            //        {
+            //            Id = product.Id,
+            //            Name = product.Name,
+            //            Price = product.Price,
+            //            Quantity = product.Quantity,
+            //            CategoriaId = product.CategoryId
+            //        }));
 
             //retornar os dados dos produtos
             return Ok(response);
