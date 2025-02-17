@@ -15,6 +15,7 @@ namespace ProductsAPI.Controllers
         /// Serviço para cadastro de produto da API
         /// </summary>
         [HttpPost]
+        [ProducesResponseType(typeof(ProductResponseDto), 200)]
         public IActionResult Post([FromBody] ProductRequestDto request)
         {
             //criando um objeto da classe Produto
@@ -44,10 +45,12 @@ namespace ProductsAPI.Controllers
         /// Serviço para atualização de produto da API
         /// </summary>
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ProductResponseDto), 200)]
         public IActionResult Put(Guid id, [FromBody] ProductRequestDto request)
         {
             //criando um objeto da classe de repositório
             var productRepository = new ProductRepository();
+
             //consultar o produto no banco de dados através do ID
             var product = productRepository.GetById(id);
 
@@ -55,7 +58,7 @@ namespace ProductsAPI.Controllers
             product.Name = request.Name; //preenchendo o nome do produto
             product.Price = request.Price; //preenchendo o preço do produto
             product.Quantity = request.Quantity; //preenchendo a quantidade do produ.to
-            product.CategoryId = request.CategoryId; //preenchendo o di da categoria do produto
+            product.CategoryId = request.CategoryId; //preenchendo o id da categoria do produto
 
             //atualizar o produto no banco de dados
             productRepository.Update(product);
@@ -73,6 +76,7 @@ namespace ProductsAPI.Controllers
         /// Serviço para exclusão de produto da API
         /// </summary>
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ProductResponseDto), 200)]
         public IActionResult Delete(Guid id)
         {
             //criando um objeto da classe de repositório
@@ -96,6 +100,7 @@ namespace ProductsAPI.Controllers
         /// Serviço para consulta de produtos da API
         /// </summary>
         [HttpGet]
+        [ProducesResponseType(typeof(ProductResponseDto), 200)]
         public IActionResult Get()
         {
             //criando um objeto da classe de repositório
@@ -116,7 +121,8 @@ namespace ProductsAPI.Controllers
                     Name = product.Name,
                     Price = product.Price,
                     Quantity = product.Quantity,
-                    CategoriaId = product.CategoryId
+                    CategoryId = product.Category?.Id,
+                    CategoryName = product.Category?.Name
                 });
             }
 
@@ -140,6 +146,7 @@ namespace ProductsAPI.Controllers
         /// Serviço para consulta de um produto da API pelo id
         /// </summary>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ProductResponseDto), 200)]
         public IActionResult GetById(Guid id)
         {
             //criando um objeto da classe de repositório
@@ -154,7 +161,7 @@ namespace ProductsAPI.Controllers
                 Name = product.Name,
                 Price = product.Price,
                 Quantity = product.Quantity,
-                CategoriaId = product.CategoryId
+                CategoryId = product.CategoryId
             };
 
             //retornar os dados do produto

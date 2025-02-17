@@ -11,7 +11,7 @@
 
         #region Relacionamentos
 
-        public List<Product>? Products { get; set; }
+        public virtual List<Product>? Products { get; set; }
 
         #endregion
     }

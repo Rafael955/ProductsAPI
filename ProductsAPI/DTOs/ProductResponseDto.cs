@@ -12,6 +12,8 @@
         
         public decimal? Total { get => Price * Quantity; }
 
-        public Guid? CategoriaId { get; set; }
+        public Guid? CategoryId { get; set; }
+
+        public string? CategoryName { get; set; }
     }
 }
